@@ -11,22 +11,29 @@ using namespace std;
 
 class CanGoWrong {
 public:
-	CanGoWrong() {
-		char *pMemory = new char[999];
-		delete[] pMemory;
-	}
+    CanGoWrong(){
+        pMemory = new char[999943092849];
+        pMemory[50] = 'y';
+    }
+    ~CanGoWrong(){
+        cout << "Destructor called." << endl;
+        delete [] pMemory;
+    }
+    char getElem(int idx) {
+        return pMemory[idx];
+    }
+private:
+    char *pMemory;
 };
 
 int main() {
-
-	try {
-		CanGoWrong wrong;
-	}
-	catch(bad_alloc &e) {
-		cout << "Caught exception: " << e.what() << endl;
-	}
-
-	cout << "Still running" << endl;
-
-	return 0;
+    try {
+        CanGoWrong wrong;
+        cout << "Memory element: " << wrong.getElem(50) << endl;
+    }
+    catch(bad_alloc &e) {
+        cout << "Memory error: " << e.what() << endl;
+    }
+    cout << "Executing other stuff..." << endl;
+    return 0;
 }
