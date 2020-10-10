@@ -7,35 +7,30 @@
 //============================================================================
 
 #include <iostream>
-#include <exception>
-
+#include <exception> // Included by iostream
 using namespace std;
 
-class MyException: public exception {
+class MyException : public exception {
 public:
-	virtual const char* what() const throw() {
-		return "Something bad happened!";
-	}
+    virtual const char* what() const throw() {
+        return "This should tell me what exactly went wrong!";
+    }
 };
 
-class Test {
+class MyClass {
 public:
-	void goesWrong() {
-		throw MyException();
-	}
+    void goesWrong() {
+        throw MyException();
+    }
 };
-
 int main() {
-
-	Test test;
-
-	try {
-		test.goesWrong();
-	}
-	catch(MyException &e) {
-		cout << e.what() << endl;
-	}
-
-
-	return 0;
+    try {
+        MyClass c;
+        c.goesWrong();
+    }
+    catch(MyException& e) {
+        cout << "ERROR: " <<  e.what() << endl;
+    }
+    cout << "Doing other stuff..." << endl;
+    return 0;
 }
